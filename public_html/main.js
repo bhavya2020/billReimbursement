@@ -1,14 +1,15 @@
 import Vue from 'vue'
-import App from './components/App.vue'
 import navbar from "./components/navbar"
 import footer from "./components/footer"
+import mainPage from "./components/main-page"
 
 new Vue({
   el: '#app',
   // render: h => h(App),
   components: {
     "mynavbar": navbar,
-    "myfooter": footer
+    "myfooter": footer,
+    "main-page": mainPage
   }
 
 });

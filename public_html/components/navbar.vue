@@ -26,12 +26,12 @@
 <style>
   body {
     display: flex;
-    min-height: 100vh;
+    min-height: 30vh;
     flex-direction: column;
   }
 
   main {
     flex: 1 0 auto;
-    min-height: 40vh;
+    min-height: 45vh;
   }
 </style>
