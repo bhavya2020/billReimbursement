@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const managerSchema = mongoose.Schema({
-    conpanyID:{
+    companyID:{
         type:mongoose.Schema.Types.ObjectId
     },
     mngCode:String,
