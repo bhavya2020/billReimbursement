@@ -66,6 +66,11 @@ module.exports = function (app) {
     app.post('/login/employee', Passport.authenticate('local-employee', {
         successRedirect:'/employee',
         failureRedirect:'/login'
-    }))
+    }));
 
+
+    app.get("/logout", (req, res) => {
+        req.logout();
+        res.send("logged out");
+    });
 };

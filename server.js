@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 });
 
 // //Items route
-// app.use("/items", require("./routes/items"));
+app.use("/company", require("./routes/company"));
 // app.use("/bids", require("./routes/bids"));
 // app.use('/users', HELPERS.checkLoggedIn, require("./routes/users"));
   require("./routes/auth")(app);
@@ -73,10 +73,6 @@ app.use((req, res, next) => {
 /*
     Other Routes
  */
-
-app.get('/company',(req,res)=>{
-    res.send('companny logged in');
-});
 // app.use(function (req, res) {
 //     res.send('404');
 // });
