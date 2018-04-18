@@ -21,7 +21,6 @@ module.exports = function (app) {
                     registrationNo: req.body.registrationNo,
                     username: req.body.username
                 }).then((company) => {
-
                     bcrypt.genSalt(10, function (err, salt) {
                         bcrypt.hash(req.body.password, salt, function (err, hash) {
                             company.password = hash;
