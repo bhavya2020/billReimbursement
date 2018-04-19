@@ -151,4 +151,17 @@ route.post('/add/manager/:departmentID', (req, res) => {
     })
 
 });
+route.get("/getDetails", (req,res)=>{
+  console.log(req.user);
+  models.company.findOne({
+    _id: req.user
+  })
+    .then((details)=>{
+      res.send(details);
+      console.log(details);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+})
 module.exports = route;

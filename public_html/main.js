@@ -2,6 +2,7 @@ import Vue from 'vue'
 import navbar from "./components/navbar"
 import footer from "./components/footer"
 import mainPage from "./components/main-page"
+import companyDash from "./components/company-dashboard"
 
 new Vue({
   el: '#app',
@@ -9,7 +10,8 @@ new Vue({
   components: {
     "mynavbar": navbar,
     "myfooter": footer,
-    "main-page": mainPage
+    "main-page": mainPage,
+    "company-dash": companyDash
   }
 
 });

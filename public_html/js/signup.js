@@ -19,7 +19,7 @@ function postData(){
       }
       else if(data === "done"){
         // user registered
-        window.location="/company/dashboard.html";
+        window.location="/company/";
       }
   })
 }
