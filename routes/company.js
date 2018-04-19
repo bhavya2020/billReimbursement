@@ -77,7 +77,7 @@ route.get('/remove/department/:deptID',(req,res)=>{
 });
 route.get('/managers', (req, res) => {
     models.manager.find({
-        companyID: req.userKey.userId
+        companyID: req.user
     }).then((managers) => {
         res.send(managers);
     }).catch((err) => {
@@ -86,7 +86,7 @@ route.get('/managers', (req, res) => {
 });
 route.get('/departments', (req, res) => {
     models.department.find({
-        companyID: req.userKey.userId,
+        companyID: req.user
     }).then((departments) => {
         console.log(departments);
         res.send(departments)
@@ -128,7 +128,7 @@ route.post('/add/manager/:departmentID', (req, res) => {
                     let username = manager.name + manager.mngCode;
                     manager.username = username;
                     let ciphertext = CryptoJS.AES.encrypt(manager.mngCode, 'secret key 123');
-                    let password = ciphertext.toString().substring(0, 8);
+                    let password = ciphertext.toString().substring(ciphertext.length()-8);
                     bcrypt.genSalt(10, function (err, salt) {
                         bcrypt.hash(password, salt, function (err, hash) {
                             manager.password = hash;

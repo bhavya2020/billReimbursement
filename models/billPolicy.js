@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const billPolicySchema = mongoose.Schema({
-    departmentId:{
+    departmentID:{
         type:mongoose.Schema.Types.ObjectId
     },
     bills:[{

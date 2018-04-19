@@ -38,13 +38,13 @@ async function commonBillDetails(req) {
     billNo: req.body.billNo,
     status: 0,
     amount: req.body.amount,
-    type: req.body.type
   })
 }
 
 route.post('/submit/healthBill', (req, res) => {
   commonBillDetails(req)
     .then((bill) => {
+      bill.type="health";
       bill.typeOfTreatment = req.body.typeOfTreatment;
       bill.NameOfDoctor = req.body.NameOfDoctor;
       bill.NameOfHospital = req.body.NameOfHospital;
@@ -56,23 +56,11 @@ route.post('/submit/healthBill', (req, res) => {
     console.log(err);
   })
 });
-route.post('/submit/healthBill', (req, res) => {
-  commonBillDetails(req)
-    .then((bill) => {
-      bill.typeOfTreatment = req.body.typeOfTreatment;
-      bill.NameOfDoctor = req.body.NameOfDoctor;
-      bill.NameOfHospital = req.body.NameOfHospital;
-      return bill.save();
-    })
-    .then(()=>{
-      res.send("added");
-    }).catch((err) => {
-    console.log(err);
-  })
-});
+
 route.post('/submit/travelBill', (req, res) => {
   commonBillDetails(req)
     .then((bill) => {
+      bill.type="travel";
       bill.TravelDuration = req.body.TravelDuration;
       bill.Destination = req.body.Destination;
       bill.LastLTCDate = req.body.LastLTCDate;
@@ -88,6 +76,7 @@ route.post('/submit/travelBill', (req, res) => {
 route.post('/submit/educationBill', (req, res) => {
   commonBillDetails(req)
     .then((bill) => {
+      bill.type="education";
       bill.NumberOfChildren = req.body.NumberOfChildren;
       bill.AgeOfChildren = req.body.AgeOfChildren;
       return bill.save();
@@ -101,6 +90,7 @@ route.post('/submit/educationBill', (req, res) => {
 route.post('/submit/houseRentBill', (req, res) => {
   commonBillDetails(req)
     .then((bill) => {
+      bill.type="houseRent";
       bill.HouseRentDuration = req.body.HouseRentDuration;
       return bill.save();
     })
@@ -113,6 +103,7 @@ route.post('/submit/houseRentBill', (req, res) => {
 route.post('/submit/otherBill', (req, res) => {
   commonBillDetails(req)
     .then((bill) => {
+      bill.type="other";
       bill.MiscellaneousType = req.body.MiscellaneousType;
       return bill.save();
     })
