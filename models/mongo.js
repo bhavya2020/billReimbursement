@@ -8,7 +8,7 @@ const manager = require("./manager");
 const employee = require("./employee");
 
 const billPolicy = require("./billPolicy");
-
+const bill=require('./bill');
 
 const department = require("./department");
 
@@ -27,5 +27,5 @@ mongoose.connect(`mongodb://${CONFIG.MONGO.HOST}:${CONFIG.MONGO.PORT}/${CONFIG.M
 
 //Expose models for use elsewhere
 module.exports = {
-    company,manager,employee,billPolicy,department
+    company,manager,employee,billPolicy,department,bill
 };

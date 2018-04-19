@@ -29,7 +29,6 @@
     "url": "https://github.com/bhavya2020/billReimbursement/issues"
   },
   "homepage": "https://github.com/bhavya2020/billReimbursement#readme",
-  "description": "",
     "passport-local": "^1.0.0",
     "vue": "^2.5.11",
   "browserslist": [
