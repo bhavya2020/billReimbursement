@@ -10,12 +10,87 @@
 
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    #form-container{
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
+  </style>
 </head>
 <body>
 <div id="app">
   <header><mynavbar></mynavbar></header>
 
-  <main></main>
+  <main>
+    <div class="container" id="form-container">
+      <h3 class="center teal-text">Register Your Company</h3>
+      <!--modal-->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Registration Failed !</h4>
+          <p>Sorry, the username you are trying already exists !</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        </div>
+      </div>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="" id="name" type="text" class="validate" name="name">
+              <label for="name">Company Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" class="validate" placeholder="" name="ceo">
+              <label for="last_name">CEO Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input  id="address" type="text" class="validate" name="address">
+              <label for="address">Company Address</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="" id="email" type="email" class="validate" name="email">
+              <label for="email">E-Mail</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="contactNo" type="text" class="validate" placeholder="" name="contactNo">
+              <label for="last_name">Contact No.</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="" id="gstNo" type="text" class="validate" name="gstNo">
+              <label for="gstNo">GST Number</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="registrationNo" type="text" class="validate" placeholder="" name="registrationNo">
+              <label for="registrationNo">Registartion Number</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input placeholder="" id="username" type="text" class="validate" name="username">
+              <label for="username">Username</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="password" type="password" class="validate" placeholder="" name="password">
+              <label for="password">Password</label>
+            </div>
+          </div>
+        </form>
+        <div class="center">
+        <button class="btn waves-effect waves-light" onclick="postData()">Submit
+          <i class="material-icons right">send</i>
+        </button>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <myfooter></myfooter>
 
@@ -23,5 +98,7 @@
 
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script src="/dist/build.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/signup.js"></script>
 </body>
 </html>
