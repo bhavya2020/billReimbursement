@@ -5,6 +5,10 @@ const models = require('../models/mongo');
 const nodemailer = require('nodemailer');
 const CONFIG = require('../configs');
 
+route.get('/',(req,res)=>{
+  res.send("Logged-in");
+});
+
 route.get('/myBills', (req, res) => {
   models.bill.find({
     empId: req.user
@@ -110,6 +114,30 @@ route.post('/submit/otherBill', (req, res) => {
     .then(()=>{
       res.send("added");
     }).catch((err) => {
+    console.log(err);
+  })
+});
+
+route.post('/resetPassword',(req,res)=>{
+  models.employee.findOne({
+    _id:req.user,
+  }).then((employee)=> {
+    bcrypt.compare(req.body.oldPass, employee.password)
+      .then((result) => {
+        if (!result) res.send("old pass incorrect");
+        else {
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(req.body.newPass ,salt, function (err, hash) {
+              employee.password = hash;
+              employee.save();
+              res.send('done');
+            })
+          })
+        }
+      }).catch((Err) => {
+      console.log(Err);
+    })
+  }).catch((err)=>{
     console.log(err);
   })
 });

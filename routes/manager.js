@@ -5,6 +5,10 @@ const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const CONFIG = require('../configs');
 
+route.get('/',(req,res)=>{
+  res.send("Logged-in");
+});
+
 route.get('/allemployees', (req, res) => {
   models.employee.find({}).then((employees) => {
     res.send(employees);
@@ -280,6 +284,30 @@ route.get('/bill/deny/:id', (req, res) => {
     })
 
   }).catch((err) => {
+    console.log(err);
+  })
+});
+
+route.post('/resetPassword',(req,res)=>{
+  models.manager.findOne({
+    _id:req.user,
+  }).then((manager)=> {
+    bcrypt.compare(req.body.oldPass, manager.password)
+      .then((result) => {
+        if (!result) res.send("old pass incorrect");
+        else {
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(req.body.newPass ,salt, function (err, hash) {
+              manager.password = hash;
+              manager.save();
+              res.send('done');
+            })
+          })
+        }
+      }).catch((Err) => {
+      console.log(Err);
+    })
+  }).catch((err)=>{
     console.log(err);
   })
 });

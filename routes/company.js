@@ -5,6 +5,10 @@ const models = require('../models/mongo');
 const nodemailer = require('nodemailer');
 const CONFIG = require('../configs');
 
+route.get('/',(req,res)=>{
+  res.send("Logged-in");
+});
+
 async function mailToManagerAboutCredentials(email, username, password, companyID, departmentID) {
 
     let company = await function (companyID) {
@@ -151,4 +155,29 @@ route.post('/add/manager/:departmentID', (req, res) => {
     })
 
 });
+
+route.post('/resetPassword',(req,res)=>{
+  models.company.findOne({
+    _id:req.user,
+  }).then((company)=> {
+    bcrypt.compare(req.body.oldPass, company.password)
+      .then((result) => {
+        if (!result) res.send("old pass incorrect");
+        else {
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(req.body.newPass ,salt, function (err, hash) {
+              company.password = hash;
+              company.save();
+              res.send('done');
+            })
+          })
+        }
+      }).catch((Err) => {
+      console.log(Err);
+    })
+  }).catch((err)=>{
+    console.log(err);
+  })
+});
+
 module.exports = route;
