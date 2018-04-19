@@ -2,7 +2,7 @@
   <nav id="navbar">
     <div class="nav-wrapper white black-text">
       <div class="container">
-        <a href="#" class="brand-logo black-text">Logo</a>
+        <a href="#" class="brand-logo black-text">Bill Reimbursement</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down black-text">
           <li><a href="sass.html" class="black-text">Sass</a></li>
           <li><a href="badges.html" class="black-text">Components</a></li>
