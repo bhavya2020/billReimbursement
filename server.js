@@ -59,6 +59,7 @@ app.use(Passport.session());
     Routes
  */
 
+app.use("/manager", require("./routes/manager"));
 app.use((req, res, next) => {
     res.locals.user = req.user;
     next();

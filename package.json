@@ -1,7 +1,6 @@
 {
   "name": "billreimbursement",
   "version": "1.0.0",
-  "description": "",
   "main": "configs.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,5 +18,14 @@
     "mongoose": "^5.0.15",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhavya2020/billReimbursement.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bhavya2020/billReimbursement/issues"
+  },
+  "homepage": "https://github.com/bhavya2020/billReimbursement#readme",
+  "description": ""
 }
