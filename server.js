@@ -66,6 +66,7 @@ app.use((req, res, next) => {
 });
 
 // //Items route
+app.use("/employee", require("./routes/employee"));
 app.use("/company", require("./routes/company"));
 // app.use("/bids", require("./routes/bids"));
 // app.use('/users', HELPERS.checkLoggedIn, require("./routes/users"));
