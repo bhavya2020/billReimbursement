@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 const CONFIG = require('../configs');
 
 route.get('/',(req,res)=>{
+  console.log("logged in");
   res.send("Logged-in");
 });
 
@@ -167,7 +168,7 @@ route.get("/getDetails", (req,res)=>{
     .catch((err) => {
       console.log(err);
     })
-})
+});
 route.post('/resetPassword',(req,res)=>{
   models.company.findOne({
     _id:req.user,

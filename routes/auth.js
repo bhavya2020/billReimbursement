@@ -41,6 +41,7 @@ module.exports = function (app) {
     });
 
     app.get('/login',(req,res)=>{
+      console.log("login");
         if (req.userKey)
         {
             switch (req.userKey.type)
@@ -55,7 +56,7 @@ module.exports = function (app) {
             res.send("unable to login");
     });
     app.post('/login/company', Passport.authenticate('local-company', {
-        successRedirect:'/company',
+        successRedirect:'/company-loggedin',
         failureRedirect:'/login'
         }));
     app.post('/login/manager', Passport.authenticate('local-manager', {
@@ -67,8 +68,13 @@ module.exports = function (app) {
         failureRedirect:'/login'
     }));
 
+    app.get('/company-loggedin',(req,res)=>{
+      console.log("company");
+      res.send("Logged-in")
+    });
 
     app.get("/logout", (req, res) => {
+
         req.logout();
         res.send("logged out");
     });

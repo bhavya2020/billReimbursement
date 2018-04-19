@@ -25,7 +25,6 @@
     </div>
     <div class="container center row " v-else id="form-container">
       <h4 class="teal-text ">{{loginOf}} Login</h4>
-      <form class="col s12 " :action="formaction" method="post">
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
@@ -38,8 +37,7 @@
             <label for="icon_telephone">Password</label>
           </div>
         </div>
-        <button class="waves-effect waves-light btn-large">Login</button>
-      </form>
+        <button class="waves-effect waves-light btn-large" @click="loginFunc">Login</button>
       <!--<a href="http://materializecss.com/getting-started.html" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>-->
       <a class="btn-small waves-effect waves-light orange" @click="toggleBtns" id="back-btn">
         <i class="material-icons left">arrow_back</i>
@@ -65,6 +63,24 @@
       }
     },
     methods: {
+      loginFunc: function () {
+        console.log("in login function");
+        let username=$("[name='username']").val();
+        console.log(username);
+        let password=$("[name='password']").val();
+        console.log(password);
+        $.post(this.formaction,{
+         username:username,
+          password:password
+        },(res)=>{
+          console.log(res);
+          if(res==="Logged-in"){
+            window.location='./'+this.loginOf.toLowerCase()+'.html';
+          }else{
+            //TODO: add pop to display error
+          }
+        })
+      },
       toggleBtns: function () {
         this.showBtns = !this.showBtns;
 
