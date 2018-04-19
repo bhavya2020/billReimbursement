@@ -27,11 +27,12 @@
       <div class="col s6 center">
         <!--buttons-->
         <h4 class="center teal-text">Management</h4><br><br>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">group_add</i>Add Department</a><br><br>
-        <div></div>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">person_add</i>Add Manager</a><br><br>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">delete_sweep</i>Remove Department</a><br><br>
-        <a class="waves-effect waves-light btn"><i class="material-icons left">delete</i>Remove Manager</a><br><br>
+        <a class="waves-effect waves-light btn" href="addDepartment.html"><i class="material-icons left">group_add</i>Add
+          Department</a><br><br>
+        <a class="waves-effect waves-light btn" href="addManager.html"><i class="material-icons left">person_add</i>Add
+          Manager</a><br><br>
+        <a class="waves-effect waves-light btn" href="removeDepartment.html"><i class="material-icons left">delete_sweep</i>Remove Department</a><br><br>
+        <a class="waves-effect waves-light btn" href="removeManager.html"><i class="material-icons left">delete</i>Remove Manager</a><br><br>
 
       </div>
     </div>
@@ -43,21 +44,18 @@
     name: "company-dashboard",
     data: function () {
       return {
-        companyDetail: {},
-        addManager: false
+        companyDetail: {}
       }
     },
     methods: {
-      toggleManager: function () {
-        this.addManager = !this.addManager;
-      }
+
     },
     mounted() {
       console.log("mounted stuff");
       //Get & update company details
       $.get("/company/getDetails")
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           this.companyDetail = data;
         })
 
