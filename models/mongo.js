@@ -6,7 +6,11 @@ const CONFIG = require("../configs");
 const company = require("./company");
 const manager = require("./manager");
 const employee = require("./employee");
+
 const billPolicy = require("./billPolicy");
+
+
+const department = require("./department");
 
 //Use global promise instead of Mongoose's
 mongoose.Promise = global.Promise;
@@ -23,5 +27,5 @@ mongoose.connect(`mongodb://${CONFIG.MONGO.HOST}:${CONFIG.MONGO.PORT}/${CONFIG.M
 
 //Expose models for use elsewhere
 module.exports = {
-    company,manager,employee,billPolicy
+    company,manager,employee,billPolicy,department
 };

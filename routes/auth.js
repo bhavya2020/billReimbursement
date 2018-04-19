@@ -21,7 +21,6 @@ module.exports = function (app) {
                     registrationNo: req.body.registrationNo,
                     username: req.body.username
                 }).then((company) => {
-
                     bcrypt.genSalt(10, function (err, salt) {
                         bcrypt.hash(req.body.password, salt, function (err, hash) {
                             company.password = hash;
@@ -66,6 +65,11 @@ module.exports = function (app) {
     app.post('/login/employee', Passport.authenticate('local-employee', {
         successRedirect:'/employee',
         failureRedirect:'/login'
-    }))
+    }));
 
+
+    app.get("/logout", (req, res) => {
+        req.logout();
+        res.send("logged out");
+    });
 };
