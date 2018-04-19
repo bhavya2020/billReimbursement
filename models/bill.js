@@ -6,7 +6,19 @@ const billSchema = mongoose.Schema({
   },
   status:Number,
   amount:Number,
-  type:String
+  type:String,
+  billNo:String,
+  HouseRentDuration:Number,
+  typeOfTreatment:String,
+  NameOfDoctor:String,
+  NameOfHospital:String,
+  NumberOfChildren: Number,
+  AgeOfChildren:[Number],
+  TravelDuration:Number,
+  Destination:String,
+  LastLTCDate: String,
+  ModeOfTransport: String,
+  MiscellaneousType:String
 });
 
 module.exports = mongoose.model("bill", billSchema);
