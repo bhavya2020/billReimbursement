@@ -5,6 +5,10 @@ const models = require('../models/mongo');
 const nodemailer = require('nodemailer');
 const CONFIG = require('../configs');
 
+route.get('/',(req,res)=>{
+  res.send("Logged-in");
+});
+
 async function mailToManagerAboutCredentials(email, username, password, companyID, departmentID) {
 
     let company = await function (companyID) {
@@ -77,7 +81,7 @@ route.get('/remove/department/:deptID',(req,res)=>{
 });
 route.get('/managers', (req, res) => {
     models.manager.find({
-        companyID: req.userKey.userId
+        companyID: req.user
     }).then((managers) => {
         res.send(managers);
     }).catch((err) => {
@@ -86,7 +90,7 @@ route.get('/managers', (req, res) => {
 });
 route.get('/departments', (req, res) => {
     models.department.find({
-        companyID: req.userKey.userId,
+        companyID: req.user
     }).then((departments) => {
         console.log(departments);
         res.send(departments)
@@ -128,7 +132,7 @@ route.post('/add/manager/:departmentID', (req, res) => {
                     let username = manager.name + manager.mngCode;
                     manager.username = username;
                     let ciphertext = CryptoJS.AES.encrypt(manager.mngCode, 'secret key 123');
-                    let password = ciphertext.toString().substring(0, 8);
+                    let password = ciphertext.toString().substring(ciphertext.length()-8);
                     bcrypt.genSalt(10, function (err, salt) {
                         bcrypt.hash(password, salt, function (err, hash) {
                             manager.password = hash;
@@ -164,4 +168,28 @@ route.get("/getDetails", (req,res)=>{
       console.log(err);
     })
 })
+route.post('/resetPassword',(req,res)=>{
+  models.company.findOne({
+    _id:req.user,
+  }).then((company)=> {
+    bcrypt.compare(req.body.oldPass, company.password)
+      .then((result) => {
+        if (!result) res.send("old pass incorrect");
+        else {
+          bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(req.body.newPass ,salt, function (err, hash) {
+              company.password = hash;
+              company.save();
+              res.send('done');
+            })
+          })
+        }
+      }).catch((Err) => {
+      console.log(Err);
+    })
+  }).catch((err)=>{
+    console.log(err);
+  })
+});
+
 module.exports = route;
