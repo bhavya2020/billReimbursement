@@ -6,7 +6,8 @@ const billSchema = mongoose.Schema({
   },
   status:Number,
   amount:Number,
-  type:String
+  type:String,
+  billNo:String
 });
 
 module.exports = mongoose.model("bill", billSchema);
