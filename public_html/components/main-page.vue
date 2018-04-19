@@ -29,12 +29,12 @@
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
-            <input id="icon_prefix" type="text" class="validate">
+            <input id="icon_prefix" type="text" class="validate" name="username">
             <label for="icon_prefix">Username</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">vpn_key</i>
-            <input id="icon_telephone" type="password" class="validate">
+            <input id="icon_telephone" type="password" class="validate" name="password">
             <label for="icon_telephone">Password</label>
           </div>
         </div>
