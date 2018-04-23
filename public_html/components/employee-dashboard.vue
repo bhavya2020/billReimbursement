@@ -7,16 +7,13 @@
 
         <div class="card medium blue-grey lighten-5 ">
           <div class="card-content teal-text" id="card-detail">
-            <!--<span class="card-title" style="font-weight: bolder">{{ companyDetail.name}}</span>-->
+            <span class="card-title" style="font-weight: bolder">{{ empDetail.name}}</span>
             <hr>
-            <!--TODO: Change all this acc to empDetails variable-->
-            <!--<span>Address: {{companyDetail.address}}</span><br>-->
-            <!--<span>CEO: {{companyDetail.ceo}}</span><br>-->
-            <!--<span>E-Mail: {{companyDetail.address}}</span><br>-->
-            <!--<span>Contact No.: {{companyDetail.contactNo}}</span><br>-->
-            <!--<span>Address: {{companyDetail.con}}</span><br>-->
-            <!--<span>Registration No.: {{companyDetail.registrationNo}}</span><br>-->
-            <!--<span>GST No.: {{companyDetail.gstNo}}</span><br>-->
+            <span>Address: {{empDetail.address}}</span><br>
+            <span>E-Mail: {{empDetail.email}}</span><br>
+            <span>Contact No.: {{empDetail.contactNo}}</span><br>
+            <span>Employee Code: {{empDetail.empCode}}</span><br>
+            <span>Manager Id: {{empDetail.managerID}}</span><br>
           </div>
           <div class="card-action center" style="font-weight: bold">
             <a href="#">Change Login Password</a>

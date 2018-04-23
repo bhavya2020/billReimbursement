@@ -11,9 +11,8 @@
             <hr>
             <span>Address: {{companyDetail.address}}</span><br>
             <span>CEO: {{companyDetail.ceo}}</span><br>
-            <span>E-Mail: {{companyDetail.address}}</span><br>
+            <span>E-Mail: {{companyDetail.email}}</span><br>
             <span>Contact No.: {{companyDetail.contactNo}}</span><br>
-            <span>Address: {{companyDetail.con}}</span><br>
             <span>Registration No.: {{companyDetail.registrationNo}}</span><br>
             <span>GST No.: {{companyDetail.gstNo}}</span><br>
           </div>
