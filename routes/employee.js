@@ -142,4 +142,20 @@ route.post('/resetPassword',(req,res)=>{
   })
 });
 
+//Employee details
+route.get("/getDetails", (req,res)=>{
+  console.log(req.user);
+  models.employee.findOne({
+    _id: req.user
+  })
+    .then((details)=>{
+      res.send(details);
+      console.log(details);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
+
 module.exports = route;

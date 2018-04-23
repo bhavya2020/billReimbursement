@@ -18,8 +18,8 @@
             <span>GST No.: {{companyDetail.gstNo}}</span><br>
           </div>
           <div class="card-action" style="font-weight: bold">
-            <a href="#">Show Departments</a>
-            <a href="#">Show Managers</a>
+            <a href="showDepartments.html">Show Departments</a>
+            <a href="showManagers.html">Show Managers</a>
           </div>
         </div>
       </div>
