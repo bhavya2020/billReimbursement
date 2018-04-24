@@ -19,16 +19,64 @@
   </header>
 
   <main>
+    <h3 class="center teal-text">ADD A DEPARTMENT</h3>
+    <div class="container" id="form-container">
+    <div class="row">
+      <div class="input-field col s8">
+        <input  id="department" type="text" class="validate" name="department">
+        <label for="department">DEPARTMENT NAME</label>
+      </div>
+      <div class="input-field col s4">
+        <button class="btn waves-effect waves-light" onclick="postData()">ADD
+        </button>
+      </div>
+    </div>
+    </div>
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
+    <ul class="collection" id="departments">
+
+    </ul>
+    </div>
     <!--content goes here-->
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script>
 
+  function showDepartments() {
+
+    let departmentList=$('#departments');
+    departmentList.html("");
+    $.get("/company/departments",function (departments) {
+      for(let department of departments)
+      {
+        let div=$(`<li class="collection-item">${department.name}</li>`);
+        departmentList.append(div);
+      }
+    })
+
+  }
+  $(()=>{
+    showDepartments();
+  });
+  function postData(){
+    let obj={
+      name: $("#department").val()
+    };
+    $.post("/company/add/department",obj,function(data){
+      console.log(data);
+      if(data === "created"){
+        showDepartments();
+      }
+    })
+  }
+</script>
 <script type="text/javascript" src="/js/materialize.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script src="/dist/build.js"></script>
 </body>
 </html>

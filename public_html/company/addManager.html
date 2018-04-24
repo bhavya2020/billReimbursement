@@ -19,16 +19,97 @@
   </header>
 
   <main>
+    <h3 class="center teal-text">ADD A MANAGER</h3>
+    <h5 class="teal-text" style="margin-left: 20px">CHOOSE A DEPARTMENT: </h5>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
+      <ul class="collection" id="departments">
+
+      </ul>
+    </div>
     <!--content goes here-->
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+  function showDepartments() {
+
+    let departmentList=$('#departments');
+    departmentList.html("");
+    $.get("/company/departments",function (departments) {
+      for(let department of departments)
+      {
+        if(department.managerID){
+          $.get(`/company/manager/${department.managerID}`,(manager)=>{
+            if(manager){
+              let div=$(`<li class="collection-item">${department.name}: ${manager.name}</li>`);
+              departmentList.append(div);
+            }
+
+          })
+        }else{
+          let div=$(`<li id= "${department._id}" class="collection-item">${department.name} <button style="margin-left: 40px" class="btn waves-effect waves-light" onclick="addManager(event)">ADD MANAGER
+        </button>
+
+         <div class="container" style="display: none" id="div${department._id}">
+    <div class="row">
+      <div class="input-field col s6">
+        <input  id="mngCode" type="text" class="validate" name="mngCode">
+        <label for="mngCode"> manager code</label>
+      </div>
+      <div class="input-field col s6">
+        <input  id="name" type="text" class="validate" name="name">
+        <label for="name"> name</label>
+      </div>
+      <div class="input-field col s6">
+        <input  id="email" type="text" class="validate" name="email">
+        <label for="email">email</label>
+      </div>
+      <div id="${department._id}" class="input-field col s4">
+        <button class="btn waves-effect waves-light" onclick="postData(event)">ADD MANAGER
+        </button>
+      </div>
+    </div>
+    </div>
+        </li>`);
+
+          departmentList.append(div);
+        }
+
+      }
+    })
+
+  }
+  $(()=>{
+    showDepartments();
+  });
+  function addManager(ev) {
+    let id=ev.target.parentElement.id;
+    let form=$(`#div${id}`);
+    form.css("display","block");
+  }
+  function postData(ev){
+    let id=ev.target.parentElement.id;
+    let obj={
+      mngCode: $("#mngCode").val(),
+      name: $("#name").val(),
+      email: $("#email").val()
+    };
+    $.post(`/company/add/manager/${id}`,obj,function(data){
+      console.log(data);
+      if(data === "added"){
+        showDepartments();
+      }
+    })
+  }
+</script>
 <script src="/dist/build.js"></script>
 </body>
 </html>

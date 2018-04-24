@@ -75,7 +75,7 @@
         },(res)=>{
           console.log(res);
           if(res==="Logged-in"){
-            window.location='./'+this.loginOf.toLowerCase()+'.html';
+            window.location='./'+this.loginOf.toLowerCase()+'/index.html';
           }else{
             //TODO: add pop to display error
           }

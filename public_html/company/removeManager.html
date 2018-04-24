@@ -20,15 +20,55 @@
 
   <main>
     <!--content goes here-->
+    <h3 class="center teal-text">REMOVE A MANAGER</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
+      <ul class="collection" id="managers">
+
+      </ul>
+    </div>
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+  function showManagers() {
+
+    let managerList=$('#managers');
+    managerList.html("");
+    $.get("/company/managers",function (managers) {
+      for(let manager of managers)
+      {
+          $.get(`/company/department/${manager.departmentID}`,(department)=>{
+
+              let div=$(`<li id="${manager._id}" class="collection-item">${manager.name}: ${department.name} <button style="margin-left: 40px" class="btn waves-effect waves-light" onclick="remove(event)">REMOVE
+        </button></li>`);
+             managerList.append(div);
+
+          })
+        }
+    })
+
+  }
+  $(()=>{
+    showManagers();
+  });
+  function remove(ev){
+    let id=ev.target.parentElement.id;
+    $.get(`/company/remove/manager/${id}`,function(data){
+      console.log(data);
+      if(data === "removed"){
+        showManagers();
+      }
+    })
+  }
+</script>
 <script src="/dist/build.js"></script>
 </body>
 </html>

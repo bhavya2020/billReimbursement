@@ -20,15 +20,52 @@
 
   <main>
     <!--content goes here-->
+    <h3 class="center teal-text">REMOVE A DEPARTMENT</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
+      <ul class="collection" id="departments">
+
+      </ul>
+    </div>
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+
+<script>
+
+  function showDepartments() {
+
+    let departmentList=$('#departments');
+    departmentList.html("");
+    $.get("/company/departments",function (departments) {
+      for(let department of departments)
+      {
+        let div=$(`<li id=${department._id} class="collection-item">${department.name}  <button style="margin-left: 40px" class="btn waves-effect waves-light" onclick="remove(event)">REMOVE
+        </button></li>`);
+        departmentList.append(div);
+      }
+    })
+
+  }
+  $(()=>{
+    showDepartments();
+  });
+  function remove(ev){
+    let id=ev.target.parentElement.id;
+    $.get(`/company/remove/department/${id}`,function(data){
+      console.log(data);
+      if(data === "removed"){
+        showDepartments();
+      }
+    })
+  }
+</script>
 </body>
 </html>
