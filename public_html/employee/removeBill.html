@@ -18,18 +18,15 @@
     <mynavbar></mynavbar>
   </header>
 
-  <!--content goes here-->
   <main>
-    <h3 class="center teal-text">YOUR BILLS</h3>
+    <!--content goes here-->
+    <h3 class="center teal-text">REMOVE A BILL</h3>
 
-    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
-
-
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
       <ul class="collection" id="bills">
 
       </ul>
     </div>
-    <!--content goes here-->
   </main>
 
 
@@ -39,10 +36,9 @@
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="/dist/build.js"></script>
 <script>
 
-  function showallBills() {
+  function showBills() {
 
     let billList=$('#bills');
     billList.html("");
@@ -50,7 +46,7 @@
       for(let bill of bills)
       {
         let div=$(`<li id="${bill._id}" class="collection-item">${bill.type} : ${bill.billNo}
-<button style="margin-left: 500px" class="btn waves-effect waves-light" onclick="showBills(event)">SHOW FULL DETAILS
+<button style="margin-left: 40px" class="btn waves-effect waves-light" onclick="remove(event)">REMOVE
         </button>
 <br> BILL AMOUNT: ${bill.amount}<br>
    STATUS : ${bill.status}</li>`);
@@ -58,15 +54,21 @@
       }
     })
 
+
   }
   $(()=>{
-    showallBills();
+    showBills();
   });
-  function showBills(ev){
+  function remove(ev){
     let id=ev.target.parentElement.id;
-    window.location=`./billinfo.html?id=${id}`;
+    $.get(`/employee/removeBill/${id}`,function(data){
+      console.log(data);
+      if(data === "removed"){
+        showBills();
+      }
+    })
   }
-
 </script>
+<script src="/dist/build.js"></script>
 </body>
 </html>

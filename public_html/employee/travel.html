@@ -20,6 +20,48 @@
 
   <main>
     <!--content goes here-->
+    <h3 class="center teal-text">Add health Bill details</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
+
+
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="TravelDuration" type="text" class="validate" name="TravelDuration">
+            <label for="TravelDuration">Travel Duration</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="Destination" type="text" class="validate" name="Destination">
+            <label for="Destination"> Destination</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="LastLTCDate" type="text" class="validate" name="LastLTCDate">
+            <label for="LastLTCDate">Last LTC Date</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="ModeOfTransport" type="text" class="validate" name="ModeOfTransport">
+            <label for="ModeOfTransport">Mode Of Transport</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="billNo" type="text" class="validate" name="billNo">
+            <label for="billNo">Bill Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="amount" type="text" class="validate" name="amount">
+            <label for="amount">Amount of Bill</label>
+          </div>
+
+          <div class="input-field col s4">
+            <button class="btn waves-effect waves-light" onclick="postData()">Submit details
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="collection" id="employees">
+
+      </ul>
+    </div>
   </main>
 
 
@@ -30,5 +72,23 @@
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+<script>
+  function postData() {
+
+    let obj = {
+      TravelDuration: $("#TravelDuration").val(),
+      Destination: $("#Destination").val(),
+      LastLTCDate: $("#LastLTCDate").val(),
+      ModeOfTransport:$('#ModeOfTransport').val(),
+      billNo:$("#billNo").val(),
+      amount:$("#amount").val()
+    };
+    $.post(`/employee/submit/travelBill`, obj, function (data) {
+      if (data === "added") {
+        window.location='/employee/showBills.html';
+      }
+    })
+  }
+</script>
 </body>
 </html>

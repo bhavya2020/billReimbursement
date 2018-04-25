@@ -20,6 +20,40 @@
 
   <main>
     <!--content goes here-->
+    <h3 class="center teal-text">Add health Bill details</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
+
+
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="NumberOfChildren" type="text" class="validate" name="NumberOfChildren">
+            <label for="NumberOfChildren"> Number of Children</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="AgeOfChildren" type="text" class="validate" name="AgeOfChildren">
+            <label for="AgeOfChildren">Age Of Children</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="billNo" type="text" class="validate" name="billNo">
+            <label for="billNo">Bill Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="amount" type="text" class="validate" name="amount">
+            <label for="amount">Amount of Bill</label>
+          </div>
+
+          <div class="input-field col s4">
+            <button class="btn waves-effect waves-light" onclick="postData()">Submit details
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="collection" id="employees">
+
+      </ul>
+    </div>
   </main>
 
 
@@ -30,5 +64,21 @@
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+<script>
+  function postData() {
+
+    let obj = {
+      NumberOfChildren: $("#NumberOfChildren").val(),
+      AgeOfChildren: $("#AgeOfChildren").val(),
+      billNo:$("#billNo").val(),
+      amount:$("#amount").val()
+    };
+    $.post(`/employee/submit/educationBill`, obj, function (data) {
+      if (data === "added") {
+        window.location='/employee/showBills.html';
+      }
+    })
+  }
+</script>
 </body>
 </html>

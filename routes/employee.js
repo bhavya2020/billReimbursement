@@ -33,7 +33,7 @@ route.get('/removeBill/:billID',(req,res)=>{
   models.bill.remove({
     _id:req.params.billID
   }).then(()=>{
-    res.send("deleted")
+    res.send("removed");
   }).catch((err)=>{
     console.log(err);
   })

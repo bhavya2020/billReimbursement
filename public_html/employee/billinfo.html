@@ -54,6 +54,38 @@
             <div>Status: ${bill.status}</div>
           `)
       }
+      if(bill.type==="travel"){
+        list.append(`
+            <div>Amount: ${bill.amount}</div>
+            <div>Travel Duration: ${bill.TravelDuration}</div>
+            <div>Destination: ${bill.Destination}</div>
+            <div>Last LTC Date: ${bill.LastLTCDate}</div>
+            <div>Mode Of Transport: ${bill.ModeOfTransport}</div>
+            <div>Status: ${bill.status}</div>
+          `)
+      }
+      if(bill.type==="education"){
+        list.append(`
+            <div>Amount: ${bill.amount}</div>
+            <div>Number Of Childrent: ${bill.NumberOfChildren}</div>
+            <div>Age Of Children: ${bill.AgeOfChildren}</div>
+            <div>Status: ${bill.status}</div>
+          `)
+      }
+      if(bill.type==="houseRent"){
+        list.append(`
+            <div>Amount: ${bill.amount}</div>
+            <div>House Rent Duration: ${bill.HouseRentDuration}</div>
+            <div>Status: ${bill.status}</div>
+          `)
+      }
+      if(bill.type==="other"){
+        list.append(`
+            <div>Amount: ${bill.amount}</div>
+            <div>Miscellaneous Type: ${bill.MiscellaneousType}</div>
+            <div>Status: ${bill.status}</div>
+          `)
+      }
     });
 
   });

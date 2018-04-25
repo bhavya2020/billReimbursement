@@ -27,6 +27,8 @@
         <h4 class="center teal-text">Management</h4><br><br>
         <a class="waves-effect waves-light btn" href="addBill.html"><i class="material-icons left">group_add</i>Add Bill</a><br><br>
         <a class="waves-effect waves-light btn" href="showBills.html"><i class="material-icons left">person_add</i>Submitted Bills</a><br><br>
+        <a class="waves-effect waves-light btn" href="removeBill.html"><i class="material-icons left">delete</i>Remove Bill</a><br><br>
+
       </div>
     </div>
   </div>
