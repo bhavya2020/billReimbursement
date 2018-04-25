@@ -18,17 +18,55 @@
     <mynavbar></mynavbar>
   </header>
 
-  <main>
     <!--content goes here-->
-  </main>
+    <main>
+        <h3 class="center teal-text">YOUR EMPLOYEES</h3>
+
+      <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
 
 
-  <!--footer-->
-  <myfooter></myfooter>
+        <ul class="collection" id="employees">
+
+        </ul>
+      </div>
+      <!--content goes here-->
+    </main>
+
+
+    <!--footer-->
+    <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+<script>
+
+  function showEmployees() {
+
+    let employeeList=$('#employees');
+    employeeList.html("");
+    $.get("/manager/employees",function (employees) {
+      for(let employee of employees)
+      {
+        let div=$(`<li id="${employee._id}" class="collection-item">${employee.name}
+<button style="margin-left: 500px" class="btn waves-effect waves-light" onclick="showBills(event)">SHOW BILLS
+        </button>
+<br> EMPLOYEE CODE: ${employee.empCode}<br>
+   EMAIL : ${employee.email}</li>`);
+        employeeList.append(div);
+      }
+    })
+
+  }
+  $(()=>{
+    showEmployees();
+  });
+  function showBills(ev){
+    let id=ev.target.parentElement.id;
+    window.location=`./bills.html?id=${id}`;
+  }
+
+</script>
 </body>
 </html>

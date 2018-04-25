@@ -17,19 +17,59 @@
     <!--navbar-->
     <mynavbar></mynavbar>
   </header>
-
   <main>
+    <h3 class="center teal-text">DEPARTMENTS</h3>
+
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
+      <ul class="collection" id="departments">
+
+      </ul>
+    </div>
     <!--content goes here-->
-    <!--TODO: same as showBills-->
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+<script>
+
+  function showDepartments() {
+
+    let departmentList=$('#departments');
+    departmentList.html("");
+    $.get("/company/departments",function (departments) {
+      for(let department of departments)
+      {
+        if(department.managerID){
+          $.get(`/company/manager/${department.managerID}`,(manager)=>{
+            if(manager){
+              let div=$(`<li class="collection-item">${department.name}: ${manager.name}</li>`);
+              departmentList.append(div);
+            }
+
+          })
+        }else{
+          let div=$(`<li id= "${department._id}" class="collection-item">${department.name}
+        (no manager assigned)
+        </li>`);
+
+          departmentList.append(div);
+        }
+
+      }
+    })
+
+  }
+  $(()=>{
+    showDepartments();
+  });
+
+</script>
 </body>
 </html>

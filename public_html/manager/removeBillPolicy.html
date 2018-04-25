@@ -20,15 +20,52 @@
 
   <main>
     <!--content goes here-->
+    <h3 class="center teal-text">REMOVE A BILL POLICY</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
+      <ul class="collection" id="billPolicies">
+
+      </ul>
+    </div>
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+<script>
+
+  function showBillPolicies() {
+
+    let BillPolicyList=$('#billPolicies');
+    BillPolicyList.html("");
+    $.get("/manager/billPolicy",function (bills) {
+      for(let bill of bills)
+      {
+
+          let div=$(`<li id="${bill.billType}" class="collection-item">${bill.billType} Bill : ${bill.percentageReimbursed}% <button style="margin-left: 40px" class="btn waves-effect waves-light" onclick="remove(event)">REMOVE
+        </button></li>`);
+          BillPolicyList.append(div);
+      }
+    })
+
+  }
+  $(()=>{
+    showBillPolicies();
+  });
+  function remove(ev){
+    let type=ev.target.parentElement.id;
+    $.get(`/manager/removebillpolicy/${type}`,function(data){
+      console.log(data);
+      if(data === "Successfully deleted bill"){
+        showBillPolicies();
+      }
+    })
+  }
+</script>
 </body>
 </html>

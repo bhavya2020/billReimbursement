@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div id="app">
+  <header>
+    <!--navbar-->
+    <mynavbar></mynavbar>
+  </header>
+
+  <main>
+    <!--content goes here-->
+    <h3 id="heading" class="center teal-text"> </h3>
+
+    <div class="container" id="list">
+
+    </div>
+  </main>
+
+
+  <!--footer-->
+  <myfooter  style="margin-top: 100px"></myfooter>
+</div>
+
+<script type="text/javascript" src="/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/dist/build.js"></script>
+<script>
+  let id;
+  function showBills() {
+    let list= $('#list');
+    $.get(`/manager/employeebill/${id}`,(bills)=>{
+      let div=$(` <h5 class="teal-text" style="margin-left: 40px"> NEW </h5>`);
+      let ul=$(`<ul class="collection"></ul>`);
+      for(let bill of bills)
+      {
+        if(bill.status==0)
+        {
+          let li=$(` <li class="collection-item"> ${bill.type} : Rs. ${bill.amount}</li>`);
+          ul.append(li);
+        }
+      }
+
+      list.append(div);
+      list.append(ul);
+
+
+       div=$(` <h5 class="teal-text" style="margin-left: 40px"> WAITING</h5>`);
+      ul=$(`<ul class="collection"></ul>`);
+      for(let bill of bills)
+      {
+        if(bill.status==1)
+        {
+          let li=$(` <li class="collection-item"> ${bill.type} : Rs. ${bill.amount}</li>`);
+          ul.append(li);
+        }
+      }
+      list.append(div);
+      list.append(ul);
+
+      div=$(` <h5 class="teal-text" style="margin-left: 40px"> APPROVED</h5>`);
+      ul=$(`<ul class="collection"></ul>`);
+      for(let bill of bills)
+      {
+        if(bill.status==2)
+        {
+          let li=$(` <li class="collection-item"> ${bill.type} : Rs. ${bill.amount}</li>`);
+          ul.append(li);
+        }
+      }
+      list.append(div);
+      list.append(ul);
+
+    })
+  }
+  $(()=>{
+    let queryString = decodeURIComponent(window.location.search);
+    queryString = queryString.substring(4);
+    id=queryString;
+    $.get(`/manager/employee/${id}`,(employee)=>{
+      $('#heading').html("BILLS OF "+employee.name)
+    })
+
+  });
+  function reset() {
+    $.post(`/manager/resetPassword`,{
+      "oldPass":$('#oldPass').val(),
+      "newPass":$("#newPass").val()
+    },(res)=>{
+      console.log(res);
+    })
+  }
+</script>
+</body>
+</html>

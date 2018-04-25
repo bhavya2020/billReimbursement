@@ -15,7 +15,7 @@
             <span>Contact No.: {{managerDetails.contactNo}}</span><br>
           </div>
           <div class="card-action" style="font-weight: bold">
-            <a href="#">Reset Password</a>
+            <a href="reset.html">Reset Password</a>
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@
           Employee</a><br><br>
         <a class="waves-effect waves-light btn" href="addBillPolicy.html"><i class="material-icons left">delete_sweep</i>Add Bill Policy</a><br><br>
         <a class="waves-effect waves-light btn" href="removeBillPolicy.html"><i class="material-icons left">delete</i>Remove Bill Policy</a><br><br>
-        <a class="waves-effect waves-light btn" href="employees.html"><i class="material-icons left">delete</i>Show Employees</a><br><br>
+        <a class="waves-effect waves-light btn" href="employees.html"><i class="material-icons left">person</i>Show Employees</a><br><br>
 
       </div>
     </div>

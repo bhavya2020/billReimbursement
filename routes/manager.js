@@ -9,14 +9,22 @@ route.get('/',(req,res)=>{
   res.send("Logged-in");
 });
 
-route.get('/allemployees', (req, res) => {
+route.get('/allEmployees', (req, res) => {
   models.employee.find({}).then((employees) => {
     res.send(employees);
   }).catch((err) => {
     console.log(err);
   })
 });
-
+route.get('/employees', (req, res) => {
+  models.employee.find({
+    managerID:req.user
+  }).then((employees) => {
+    res.send(employees);
+  }).catch((err) => {
+    console.log(err);
+  })
+});
 async function mailToEmployeeCredentials(email, username, password, managerId) {
 
   let manager = await function (managerId) {
@@ -101,7 +109,7 @@ async function mailToEmployeeBillAppDenReim(status, email, managerId, bill) {
   }(status,manager,email);
 }
 
-route.post('/add', (req, res) => {
+route.post('/employee/add', (req, res) => {
   models.employee.findOne({
     empCode: req.body.empCode
   }).then((employeeExisting) => {
@@ -118,7 +126,7 @@ route.post('/add', (req, res) => {
         let username = employee.name + employee.empCode;
         employee.username = username;
         let cipherText=CryptoJS.AES.encrypt(employee.empCode, 'secret key 123');
-        let password = cipherText.toString().substring(cipherText.length()-1);
+        let password = cipherText.toString().substring(cipherText.toString().length-8);
         bcrypt.genSalt(10, function (err, salt) {
           bcrypt.hash(password, salt, function (err, hash) {
             employee.password = hash;
@@ -201,13 +209,25 @@ route.post('/billpolicy/:type', (req, res) => {
     })
 
 });
-
+route.get('/billPolicy',(req,res)=>{
+  models.manager.findOne({
+    _id:req.user
+  }).then((manager)=>{
+    return models.billPolicy.findOne({
+      departmentID:manager.departmentID
+    }).then((billPolicies)=>{
+      res.send(billPolicies.bills);
+    }).catch((err)=>{
+      console.log(err);
+    })
+  })
+});
 route.get('/removebillpolicy/:type', (req, res) => {
     models.manager.findOne({
       _id: req.user
     }).then((manager) => {
       models.billPolicy.findOneAndUpdate({
-          departmentId: manager.departmentId
+          departmentID: manager.departmentID
         },
         {
           $pull: {
@@ -225,7 +245,15 @@ route.get('/removebillpolicy/:type', (req, res) => {
     })
 
 });
-
+route.get('/employee/:id',(req,res)=>{
+  models.employee.findOne({
+    _id:req.params.id
+  }).then((employee)=>{
+    res.send(employee);
+  }).catch((err)=>{
+    console.log(err);
+  })
+});
 route.get('/employeebill/:id', (req, res) => {
   models.bill.find({
     empId: req.params.id
@@ -240,8 +268,10 @@ route.get('/bill/:id', (req, res) => {
   models.bill.findOne({
     _id: req.params.id
   }).then((bill) => {
-    bill.status = 1;
-    bill.save();
+    if(bill.status=0){
+      bill.status = 1;
+      bill.save();
+    }
     res.send(bill);
   }).catch((err) => {
     console.log(err);

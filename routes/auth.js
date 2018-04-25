@@ -56,20 +56,19 @@ module.exports = function (app) {
             res.send("unable to login");
     });
     app.post('/login/company', Passport.authenticate('local-company', {
-        successRedirect:'/company-loggedin',
+        successRedirect:'/loggedin',
         failureRedirect:'/login'
         }));
     app.post('/login/manager', Passport.authenticate('local-manager', {
-        successRedirect:'/manager',
+        successRedirect:'/loggedin',
         failureRedirect:'/login'
     }));
     app.post('/login/employee', Passport.authenticate('local-employee', {
-        successRedirect:'/employee',
+        successRedirect:'/loggedin',
         failureRedirect:'/login'
     }));
 
-    app.get('/company-loggedin',(req,res)=>{
-      console.log("company");
+    app.get('/loggedin',(req,res)=>{
       res.send("Logged-in")
     });
 

@@ -20,44 +20,45 @@
 
   <main>
     <!--content goes here-->
-    <h3 class="center teal-text">MANAGERS</h3>
+    <h3 class="center teal-text">RESET PASSWORD</h3>
 
-    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px" >
-      <ul class="collection" id="managers">
-
-      </ul>
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="oldPass" type="password" class="validate">
+          <label for="oldPass"> old password </label>
+        </div>
+      </div>
+      <div class="input-field col s12">
+        <input id="newPass" type="password" class="validate">
+        <label for="newPass"> new password </label>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 40px">
+      <div class="center col s12">
+    <button class="btn-large waves-effect waves-light" onclick="reset()">RESET PASSWORD
+    </button>
+    </div>
     </div>
   </main>
 
 
   <!--footer-->
-  <myfooter style="margin-top: 100px"></myfooter>
+  <myfooter  style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
 <script>
-
-  function showManagers() {
-
-    let managerList=$('#managers');
-    managerList.html("");
-    $.get("/company/managers",function (managers) {
-      for(let manager of managers)
-      {
-        let div=$(`<li id="${manager._id}" class="collection-item">${manager.name}
-<br> MANAGER CODE: ${manager.mngCode}<br>
-   EMAIL : ${manager.email}</li>`);
-        managerList.append(div);
-      }
+  function reset() {
+    $.post(`/manager/resetPassword`,{
+      "oldPass":$('#oldPass').val(),
+      "newPass":$("#newPass").val()
+    },(res)=>{
+      console.log(res);
     })
-
   }
-  $(()=>{
-    showManagers();
-  });
-
 </script>
 </body>
 </html>

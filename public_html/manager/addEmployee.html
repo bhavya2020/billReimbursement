@@ -18,17 +18,82 @@
     <mynavbar></mynavbar>
   </header>
 
+
   <main>
+    <h3 class="center teal-text">ADD AN EMPLOYEE</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
+
+
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="empCode" type="text" class="validate" name="empCode">
+            <label for="empCode"> employee code</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="name" type="text" class="validate" name="name">
+            <label for="name"> name</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="email" type="text" class="validate" name="email">
+            <label for="email">email</label>
+          </div>
+          <div class="input-field col s4">
+            <button class="btn waves-effect waves-light" onclick="postData()">ADD EMPLOYEE
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="collection" id="employees">
+
+      </ul>
+    </div>
     <!--content goes here-->
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+  function showEmployees() {
+
+    let employeeList = $('#employees');
+    employeeList.html("");
+    $.get("/manager/employees", function (employees) {
+      for (let employee of employees) {
+        let div = $(`<li class="collection-item">${employee.name}
+        </li>`);
+
+        employeeList.append(div);
+      }
+    })
+
+  }
+
+  $(() => {
+    showEmployees();
+  });
+
+  function postData() {
+
+    let obj = {
+      empCode: $("#empCode").val(),
+      name: $("#name").val(),
+      email: $("#email").val()
+    };
+    $.post(`/manager/employee/add`, obj, function (data) {
+      if (data === "done") {
+        showEmployees();
+      }
+    })
+  }
+</script>
 <script src="/dist/build.js"></script>
 </body>
 </html>

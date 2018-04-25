@@ -20,6 +20,44 @@
 
   <main>
     <!--content goes here-->
+    <h3 class="center teal-text">ADD A BILL POLICY</h3>
+
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="percentage" type="text" class="validate" name="percentage">
+          <label for="percentage"> percentage Reimbursed </label>
+        </div>
+      </div>
+    </div>
+    <h5 class="teal-text" style="margin-left: 80px">SELECT THE BILL TYPE: </h5>
+
+    <div class="container">
+      <div class="row">
+      <div id="health" class=" center col s4">
+          <button class="btn-large waves-effect waves-light green" onclick="postData(event)">Health Bill
+          </button>
+      </div>
+      <div id="travel" class="center col s4">
+        <button class="btn-large waves-effect waves-light green" onclick="postData(event)">TravelBill
+        </button>
+      </div>
+      <div id="education" class=" center col s4">
+        <button class="btn-large waves-effect waves-light green" onclick="postData(event)">Education Bill
+        </button>
+      </div>
+      </div>
+        <div class="row">
+      <div id="houseRent" class=" center col s6">
+        <button class="btn-large waves-effect waves-light green" onclick="postData(event)">House Rent Bill
+        </button>
+      </div>
+      <div id="other" class="  col s6">
+        <button class="btn-large waves-effect waves-light green" onclick="postData(event)">Miscellaneous
+        </button>
+      </div>
+      </div>
+    </div>
   </main>
 
 
@@ -30,5 +68,15 @@
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
+<script>
+  function postData(ev) {
+    let type=ev.target.parentElement.id;
+    $.post(`/manager/billpolicy/${type}`,{
+      "percentageReimbursed":$('#percentage').val()
+    },(res)=>{
+        console.log(res);
+      })
+  }
+</script>
 </body>
 </html>
