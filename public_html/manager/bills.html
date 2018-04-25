@@ -39,6 +39,7 @@
   let id;
   function showBills() {
     let list= $('#list');
+    list.html("");
     $.get(`/manager/employeebill/${id}`,(bills)=>{
       let div=$(` <h5 class="teal-text" style="margin-left: 40px"> NEW </h5>`);
       let ul=$(`<ul class="collection"></ul>`);
@@ -46,7 +47,8 @@
       {
         if(bill.status==0)
         {
-          let li=$(` <li class="collection-item"> ${bill.type} : Rs. ${bill.amount}</li>`);
+          let li=$(` <li id="${bill._id}"class="collection-item"> ${bill.type} : Rs. ${bill.amount} <button style="margin-left: 500px" class="btn waves-effect waves-light" onclick="show(event)">VIEW
+        </button> </li>`);
           ul.append(li);
         }
       }
@@ -61,7 +63,8 @@
       {
         if(bill.status==1)
         {
-          let li=$(` <li class="collection-item"> ${bill.type} : Rs. ${bill.amount}</li>`);
+          let li=$(` <li id="${bill._id}" class="collection-item"> ${bill.type} : Rs. ${bill.amount}<button style="margin-left: 500px" class="btn waves-effect waves-light" onclick="show(event)">VIEW
+        </button></li>`);
           ul.append(li);
         }
       }
@@ -74,7 +77,8 @@
       {
         if(bill.status==2)
         {
-          let li=$(` <li class="collection-item"> ${bill.type} : Rs. ${bill.amount}</li>`);
+          let li=$(` <li id="${bill._id}" class="collection-item"> ${bill.type} : Rs. ${bill.amount}<button style="margin-left: 500px" class="btn waves-effect waves-light" onclick="show(event)">VIEW
+        </button></li>`);
           ul.append(li);
         }
       }
@@ -87,19 +91,78 @@
     let queryString = decodeURIComponent(window.location.search);
     queryString = queryString.substring(4);
     id=queryString;
-    console.log(id);
     $.get(`/manager/employee/${id}`,(employee)=>{
       $('#heading').html("BILLS OF "+employee.name)
     });
     showBills();
 
   });
-  function reset() {
-    $.post(`/manager/resetPassword`,{
-      "oldPass":$('#oldPass').val(),
-      "newPass":$("#newPass").val()
-    },(res)=>{
+  function show(ev) {
+    let id=ev.target.parentElement.id;
+    let li=$(`#${id}`);
+    $.get(`/manager/bill/${id}`,(bill)=>{
+      let div=$(`<div></div>`);
+      switch (bill.type){
+        case "health":
+          div.html(`<br> Type Of Treatment: ${bill.typeOfTreatment}<br>
+Name of Doctor : ${bill.NameOfDoctor} <br>
+Name of Hospital : ${bill.NameOfHospital}  `);break;
+        case "travel":
+          div.html(`<br> Travel Duration: ${bill.TravelDuration}<br>
+Destination : ${bill.Destination} <br>
+last LTC Date : ${bill.LastLTCDate} <br>
+Mode of Transport: ${bill.ModeOfTransport} `);break;
+        case "education":
+          div.html(`<br>
+No of Children : ${bill.NumberOfChildren} <br>
+Age of Children : ${bill.AgeOfChildren}  `);break;
+        case "houseRent":
+          div.html(`<br>
+House Rent Duration : ${bill.HouseRentDuration}
+ `);break;
+        default :
+          div.html(`<br>
+Miscellaneous Type : ${bill.MiscellaneousType}
+ `);
+          console.log(div);
+      }
+
+//      console.log(div);
+      if(bill.status ==2){
+        div.append(`<br><button style="margin-left: 50px" class="btn waves-effect waves-light" onclick="Reimburse(event)">REIMBURSE
+        </button>`)
+      }else {
+        div.append(`<br><button style="margin-left: 50px" class="btn waves-effect waves-light" onclick="Approve(event)">Approve
+        </button> <button style="margin-left: 50px" class="btn waves-effect red waves-light" onclick="Deny(event)">Deny
+        </button>`)
+      }
+
+      li.append(div);
+
+    })
+
+  }
+
+  function Deny(ev) {
+    let id=ev.target.parentElement.parentElement.id;
+    console.log(id);
+    $.get(`/manager/bill/deny/${id}`,(res)=>{
+      showBills();
+    })
+  }
+  function Reimburse(ev) {
+    let id=ev.target.parentElement.parentElement.id;
+    console.log(id);
+    $.get(`/manager/bill/reimbursed/${id}`,(res)=>{
+      showBills();
+    })
+  }
+  function Approve(ev) {
+    let id=ev.target.parentElement.parentElement.id;
+    console.log(id);
+    $.get(`/manager/bill/approve/${id}`,(res)=>{
       console.log(res);
+      showBills();
     })
   }
 </script>

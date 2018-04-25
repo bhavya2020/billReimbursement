@@ -13,7 +13,7 @@ const billSchema = mongoose.Schema({
   NameOfDoctor:String,
   NameOfHospital:String,
   NumberOfChildren: Number,
-  AgeOfChildren:[Number],
+  AgeOfChildren:Number,
   TravelDuration:Number,
   Destination:String,
   LastLTCDate: String,

@@ -270,27 +270,33 @@ route.get('/bill/:id', (req, res) => {
   models.bill.findOne({
     _id: req.params.id
   }).then((bill) => {
-    if(bill.status=0){
+    if(bill.status==0){
       bill.status = 1;
       bill.save();
     }
     res.send(bill);
+    console.log(bill);
   }).catch((err) => {
     console.log(err);
   })
 });
 
 route.get('/bill/approve/:id', (req, res) => {
+  console.log("dh jad");
   models.bill.findOne({
     _id: req.params.id
   }).then((bill) => {
+    console.log(bill);
     models.employee.findOne({
       _id: bill.empId
     }).then((employee) => {
       bill.status = 2;
-      mailToEmployeeBillAppDenReim(2, employee.email, employee.managerID, bill);
       bill.save();
+      console.log("approve " , bill);
+      mailToEmployeeBillAppDenReim(2, employee.email, employee.managerID, bill);
+
       res.send(bill);
+
     }).catch((err) => {
       console.log(err);
     })
