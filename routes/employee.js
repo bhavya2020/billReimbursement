@@ -22,6 +22,8 @@ route.get('/billDetails/:billID',(req,res)=>{
   models.bill.findOne({
     _id:req.params.billID
   }).then((bill)=>{
+    console.log("wow");
+    console.log(bill);
     res.send(bill)
   }).catch((err)=>{
     console.log(err);

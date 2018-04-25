@@ -87,9 +87,11 @@
     let queryString = decodeURIComponent(window.location.search);
     queryString = queryString.substring(4);
     id=queryString;
+    console.log(id);
     $.get(`/manager/employee/${id}`,(employee)=>{
       $('#heading').html("BILLS OF "+employee.name)
-    })
+    });
+    showBills();
 
   });
   function reset() {

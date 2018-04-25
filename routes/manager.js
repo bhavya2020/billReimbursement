@@ -249,6 +249,8 @@ route.get('/employee/:id',(req,res)=>{
   models.employee.findOne({
     _id:req.params.id
   }).then((employee)=>{
+    console.log("dfd");
+    console.log(employee);
     res.send(employee);
   }).catch((err)=>{
     console.log(err);

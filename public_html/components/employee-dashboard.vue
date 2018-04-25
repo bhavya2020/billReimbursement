@@ -16,7 +16,7 @@
             <span>Manager Id: {{empDetail.managerID}}</span><br>
           </div>
           <div class="card-action center" style="font-weight: bold">
-            <a href="#">Change Login Password</a>
+            <a href="reset.html">Change Login Password</a>
           </div>
         </div>
       </div>

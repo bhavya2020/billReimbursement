@@ -10,11 +10,6 @@
 
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    #main-container{
-      margin-top: 3em;
-    }
-  </style>
 </head>
 <body>
 <div id="app">
@@ -23,26 +18,54 @@
     <mynavbar></mynavbar>
   </header>
 
+  <!--content goes here-->
   <main>
-    <!--content goes here-->
-    <div id="main-container" class="container">
-      <div class="collection" id="bill-list">
-        <!--example-->
-        <a href="#!" class="collection-item">Alvin</a>
-      </div>
+    <h3 class="center teal-text">YOUR BILLS</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
+
+
+      <ul class="collection" id="bills">
+
+      </ul>
     </div>
+    <!--content goes here-->
   </main>
 
 
   <!--footer-->
-  <myfooter></myfooter>
+  <myfooter style="margin-top: 100px"></myfooter>
 </div>
 
 <script type="text/javascript" src="/js/materialize.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="/dist/build.js"></script>
 <script>
-//TODO: AJAX to submitted bills and append to #bill-list in this format <a href="#!" class="collection-item">Alvin</a>
+
+  function showallBills() {
+
+    let billList=$('#bills');
+    billList.html("");
+    $.get("/employee/myBills",function (bills) {
+      for(let bill of bills)
+      {
+        let div=$(`<li id="${bill._id}" class="collection-item">${bill.billNo}
+<button style="margin-left: 500px" class="btn waves-effect waves-light" onclick="showBills(event)">SHOW FULL DETAILS
+        </button>
+<br> BILL AMOUNT: ${bill.amount}<br>
+   STATUS : ${bill.status}</li>`);
+        billList.append(div);
+      }
+    })
+
+  }
+  $(()=>{
+    showallBills();
+  });
+  function showBills(ev){
+    let id=ev.target.parentElement.id;
+    window.location=`./billinfo.html?id=${id}`;
+  }
 
 </script>
 </body>

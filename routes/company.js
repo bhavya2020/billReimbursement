@@ -39,7 +39,7 @@ async function mailToManagerAboutCredentials(email, username, password, companyI
             subject: 'account creation',
             text: 'You are receiving this because ' + company.name + ' has selected you to be the manager of department ' + department.name + ' Your account details are:\n\n' +
             'username : ' + username + '\n' +
-            'password: ' + password + '.'
+            'password: ' + password
         };
         smtpTransport.sendMail(mailOptions, function (err) {
             if (err) {

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div id="app">
+  <header>
+    <!--navbar-->
+    <mynavbar></mynavbar>
+  </header>
+
+  <main>
+    <!--content goes here-->
+    <h3 class="center teal-text">Add health Bill details</h3>
+
+    <div style="margin-left:100px; margin-right:100px; margin-bottom: 200px; margin-top: 20px">
+
+
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="typeOfTreatment" type="text" class="validate" name="typeOfTreatment">
+            <label for="typeOfTreatment">Type of Treatment</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="NameOfDoctor" type="text" class="validate" name="NameOfDoctor">
+            <label for="NameOfDoctor"> Name Of Doctor</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="NameOfHospital" type="text" class="validate" name="NameOfHospital">
+            <label for="NameOfHospital">Name Of Hospital</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="billNo" type="text" class="validate" name="billNo">
+            <label for="billNo">Bill Number</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="amount" type="text" class="validate" name="amount">
+            <label for="amount">Amount of Bill</label>
+          </div>
+
+          <div class="input-field col s4">
+            <button class="btn waves-effect waves-light" onclick="postData()">Submit details
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="collection" id="employees">
+
+      </ul>
+    </div>
+  </main>
+
+
+  <!--footer-->
+  <myfooter></myfooter>
+</div>
+
+<script type="text/javascript" src="/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/dist/build.js"></script>
+<script>
+  function postData() {
+
+    let obj = {
+      typeOfTreatment: $("#typeOfTreatment").val(),
+      NameOfDoctor: $("#NameOfDoctor").val(),
+      NameOfHospital: $("#NameOfHospital").val(),
+      billNo:$("#billNo").val(),
+      amount:$("#amount").val()
+    };
+    $.post(`/employee/submit/healthBill`, obj, function (data) {
+      if (data === "added") {
+        window.location='/employee/showBills.html';
+      }
+    })
+  }
+</script>
+</body>
+</html>

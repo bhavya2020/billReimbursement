@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection"/>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<div id="app">
+  <header>
+    <!--navbar-->
+    <mynavbar></mynavbar>
+  </header>
+
+  <main>
+    <!--content goes here-->
+    <h3 class="center teal-text">RESET PASSWORD</h3>
+
+    <div class="container">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="oldPass" type="password" class="validate">
+          <label for="oldPass"> old password </label>
+        </div>
+      </div>
+      <div class="input-field col s12">
+        <input id="newPass" type="password" class="validate">
+        <label for="newPass"> new password </label>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 40px">
+      <div class="center col s12">
+    <button class="btn-large waves-effect waves-light" onclick="reset()">RESET PASSWORD
+    </button>
+    </div>
+    </div>
+  </main>
+
+
+  <!--footer-->
+  <myfooter  style="margin-top: 100px"></myfooter>
+</div>
+
+<script type="text/javascript" src="/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/dist/build.js"></script>
+<script>
+  function reset() {
+    $.post(`/employee/resetPassword`,{
+      "oldPass":$('#oldPass').val(),
+      "newPass":$("#newPass").val()
+    },(res)=>{
+      console.log(res);
+    })
+  }
+</script>
+</body>
+</html>
